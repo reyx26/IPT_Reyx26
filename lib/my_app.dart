@@ -46,10 +46,11 @@ class MyApp extends StatelessWidget {
         },
         onGenerateRoute: (settings){
           final argument = settings.arguments as Map<String, dynamic>;
-          final eventId = argument['id'];
+          
 
-          switch(argument['name']){
+          switch(settings.name){
             case 'event':
+            final eventId = argument['id'];
               return MaterialPageRoute(builder: (_){
                 return EventPage(id: eventId,);
               });

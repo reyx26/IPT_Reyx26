@@ -1,4 +1,4 @@
-import 'package:auntie_rafiki/models/events.dart';
+import 'package:auntie_rafiki/Pages/event_page.dart';
 import 'package:auntie_rafiki/providers/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +14,7 @@ class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
     final eventProvider = Provider.of<EventProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Events'),
@@ -23,7 +24,10 @@ class _EventListState extends State<EventList> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: (){
-                  Navigator.of(context).pushNamed('event', arguments: {"id":eventProvider.events[index].id});
+                  // Navigator.of(context).pushNamed('event', arguments: {"id":eventProvider.events[index].id});
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                    return EventPage(id: eventProvider.events[index].id);
+                  }));
                 },
                 child: Card(
                   child: Padding(
@@ -55,6 +59,11 @@ class _EventListState extends State<EventList> {
                   ),
                 ),
               );
-            }));
+            }),
+            floatingActionButton: FloatingActionButton(onPressed: (){
+              eventProvider.addEvent();
+            },
+            child: Icon(Icons.add),
+            ));
   }
 }
