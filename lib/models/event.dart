@@ -18,4 +18,8 @@ class Event {
       required this.featuredImage,
       required this.date,
       required this.time});
+
+      factory Event.fromJson(Map<String, dynamic> json){
+        return Event(id: json['id'], name: json['name'], category: '', description: json['description'], location: json['location'], featuredImage: json['featured_image'], date: json['date'], time: json['time']);
+      }
 }

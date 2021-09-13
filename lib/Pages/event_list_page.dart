@@ -12,6 +12,12 @@ class EventList extends StatefulWidget {
 
 class _EventListState extends State<EventList> {
   @override
+  void initState() {
+    Provider.of<EventProvider>(context, listen: false).getEvents();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final eventProvider = Provider.of<EventProvider>(context);
 
@@ -23,9 +29,10 @@ class _EventListState extends State<EventList> {
             itemCount: eventProvider.events.length,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: (){
+                onTap: () {
                   // Navigator.of(context).pushNamed('event', arguments: {"id":eventProvider.events[index].id});
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
                     return EventPage(id: eventProvider.events[index].id);
                   }));
                 },
@@ -37,7 +44,10 @@ class _EventListState extends State<EventList> {
                         Container(
                           height: 200,
                           width: double.infinity,
-                          child: Image.network(eventProvider.events[index].featuredImage,fit: BoxFit.cover,),
+                          child: Image.network(
+                            eventProvider.events[index].featuredImage,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +56,10 @@ class _EventListState extends State<EventList> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(eventProvider.events[index].name, style: Theme.of(context).textTheme.headline6,),
+                                Text(
+                                  eventProvider.events[index].name,
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
                                 Text(eventProvider.events[index].date),
                                 Text(eventProvider.events[index].time),
                               ],
@@ -60,10 +73,11 @@ class _EventListState extends State<EventList> {
                 ),
               );
             }),
-            floatingActionButton: FloatingActionButton(onPressed: (){
-              eventProvider.addEvent();
-            },
-            child: Icon(Icons.add),
-            ));
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            eventProvider.addEvent();
+          },
+          child: Icon(Icons.add),
+        ));
   }
 }

@@ -16,8 +16,8 @@ class _BoomColorChangerState extends State<BoomColorChanger> {
     Colors.yellow,
     Colors.green,
     Colors.blue,
-    Colors.indigo,
-    Colors.black
+    Colors.pink,
+    Colors.brown
   ];
 
   @override
